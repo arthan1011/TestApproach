@@ -18,28 +18,32 @@ public class BookingData {
 
     /**
      * Бронирует опеределенную комнату на определенный час в определенный день недели.
-     * @param roomId
+     * @param roomID
      * @param day
      * @param hour
      */
-    public void bookClassroom(String roomId, DayOfWeek day, int hour) {
-        prepareSchedule(roomId);
-        roomMap.get(roomId).book(day, hour);
-    }
-
-    /**
-     * Назначает расписание для комнаты если у нее нет расписания
-     * @param roomId
-     */
-    @VisibleForTesting
-    void prepareSchedule(String roomId) {
-        if (roomMap.get(roomId) == null) {
-            roomMap.put(roomId, new RoomSchedule());
+    public void bookClassroom(String roomID, DayOfWeek day, int hour) {
+        // при попытке забронировать комнату, у которой нет расписания создает новое расписание и ассоциирует
+        // его с номером комнаты
+        if (!hasRoomScheduleForRoomID(roomID)) {
+            setRoomSchedule(roomID, new RoomSchedule());
         }
+        getRoomScheduleForID(roomID).book(day, hour);
     }
 
     @VisibleForTesting
-    void setRoomsMap(Map<String, RoomSchedule> roomMap) {
-        this.roomMap = roomMap;
+    RoomSchedule getRoomScheduleForID(String roomID) {
+        return roomMap.get(roomID);
     }
+
+    @VisibleForTesting
+    void setRoomSchedule(String roomId, RoomSchedule roomSchedule) {
+        roomMap.put(roomId, roomSchedule);
+    }
+
+    @VisibleForTesting
+    boolean hasRoomScheduleForRoomID(String roomId) {
+        return roomMap.get(roomId) != null;
+    }
+
 }
