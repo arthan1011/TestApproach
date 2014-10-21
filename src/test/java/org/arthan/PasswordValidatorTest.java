@@ -54,6 +54,8 @@ public class PasswordValidatorTest {
     public void passwordShouldNotBeNull() throws Exception {
         try {
             PasswordValidator.validatePassword(null);
+            fail("Method validatePassword should throw IllegalArgumentException\n if its call parameter is null " +
+                    "but no Exception was thrown");
         } catch (IllegalArgumentException e) {
 
         } catch (Exception e) {
