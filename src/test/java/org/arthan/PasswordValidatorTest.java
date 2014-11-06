@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import static junitparams.JUnitParamsRunner.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
+import org.fest.assertions.Assertions;
 
 /**
  * Created by artur.shamsiev on 02.10.2014.
@@ -39,6 +40,8 @@ public class PasswordValidatorTest {
     @Test
     @Parameters(method = "parametersForLengthValidation")
     public void passwordShouldBeAtLeast7CharactersLong(String password, boolean validationResult) throws Exception {
+        Assertions.assertThat(PasswordValidator.validLength(password))
+                .isEqualTo(validationResult);
         assertEquals("The result of password validation should be false if the password has less than 7 characters\n" +
                         "and result of password validation should be true if the password has at least 7 characters\n" +
                         "password = " + password,

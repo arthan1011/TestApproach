@@ -2,6 +2,7 @@ package org.arthan.booking.enhanced;
 
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
+import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -83,7 +84,8 @@ public class BookingDataTest {
             int roomMapPutTimes) throws Exception {
 
         final BookingData bookingData = spy(new BookingData());
-        doReturn(scheduleSaved).when(bookingData).hasRoomScheduleForRoomID(id);
+        doReturn(scheduleSaved).when(bookingData).hasRoomScheduleForRoomID(
+                argThat(CoreMatchers.equalTo(id)));
         doReturn(mock(RoomSchedule.class)).when(bookingData).getRoomScheduleForID(id);
 
         DayOfWeek anyDay = DayOfWeek.MONDAY;
