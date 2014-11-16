@@ -5,7 +5,10 @@
   <groupId>org.arthan</groupId>
   <artifactId>testProject</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <packaging>jar</packaging>
+    <modules>
+        <module>AuctionSniper</module>
+    </modules>
+    <packaging>pom</packaging>
 
   <name>testProject</name>
   <url>http://maven.apache.org</url>
