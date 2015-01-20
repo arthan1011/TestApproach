@@ -14,20 +14,6 @@
     <properties>
         <home.dir>/home/arthan</home.dir>
     </properties>
-    <build>
-        <plugins>
-            <plugin>
-                <artifactId>exec-maven-plugin</artifactId>
-                <groupId>org.codehaus.mogo</groupId>
-                <executions>
-                    <execution>
-
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
-
 
     <dependencies>
         <dependency>

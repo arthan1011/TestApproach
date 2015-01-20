@@ -1,18 +1,21 @@
-package org.arthan.auctonsniper;
+package org.arthan.auctionsniper;
 
-import org.arthan.auctonsniper.ui.MainWindow;
+import org.arthan.auctionsniper.ui.MainWindow;
+import org.arthan.auctionsniper.util.AuctionMessageTranslator;
 import org.jivesoftware.smack.Chat;
-import org.jivesoftware.smack.MessageListener;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
-import org.jivesoftware.smack.packet.Message;
 
 import javax.swing.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  * Created by arthan on 11/6/14.
  */
-public class Main {
+public class Main implements SniperListener {
+    public static final String BID_COMMAND_FORMAT = "SOLVersion: 1.1; Command: BID; Price %d";
+    public static final String JOIN_COMMAND_FORMAT = "SOLVersion: 1.1; Command: JOIN";
     @SuppressWarnings("unused") private Chat notToBeCGd;
 
     public static final String MAIN_WINDOW_NAME = "Auction Sniper Main";
@@ -52,21 +55,34 @@ public class Main {
     }
 
     private void joinAuction(XMPPConnection connection, String itemID) throws XMPPException {
-        final Chat chat = connection.getChatManager().createChat(auctionID(itemID, connection), new MessageListener() {
-            @Override
-            public void processMessage(Chat chat, Message message) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        ui.showStatus(MainWindow.STATUS_LOST);
-                    }
-                });
-            }
-        });
+        final Chat chat = connection.getChatManager().createChat(
+                auctionID(itemID, connection), null);
 
+        Auction auction = new Auction() {
+            @Override
+            public void bid(int newPrice) {
+                try {
+                    chat.sendMessage(String.format(BID_COMMAND_FORMAT, newPrice));
+                } catch (XMPPException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        disconnectWhenUICloses(connection);
         this.notToBeCGd = chat;
 
-        chat.sendMessage(new Message());
+        chat.addMessageListener(new AuctionMessageTranslator(new AuctionSniper(auction, this)));
+
+        chat.sendMessage(JOIN_COMMAND_FORMAT);
+    }
+
+    private void disconnectWhenUICloses(final XMPPConnection connection) {
+        ui.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                connection.disconnect();
+            }
+        });
     }
 
 
@@ -82,5 +98,32 @@ public class Main {
         return connection;
     }
 
+    public void auctionClosed() {
+//        SwingUtilities.invokeLater(new Runnable() {
+//            @Override
+//            public void run() {
+//                ui.showStatus(MainWindow.STATUS_LOST);
+//            }
+//        });
+    }
 
+    @Override
+    public void sniperLost() {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                ui.showStatus(MainWindow.STATUS_LOST);
+            }
+        });
+    }
+
+    @Override
+    public void sniperBidding() {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                ui.showStatus(MainWindow.STATUS_BIDDING);
+            }
+        });
+    }
 }

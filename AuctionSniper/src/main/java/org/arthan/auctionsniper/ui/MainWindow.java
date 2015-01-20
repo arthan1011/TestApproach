@@ -1,6 +1,6 @@
-package org.arthan.auctonsniper.ui;
+package org.arthan.auctionsniper.ui;
 
-import org.arthan.auctonsniper.Main;
+import org.arthan.auctionsniper.Main;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -13,6 +13,7 @@ public class MainWindow extends JFrame {
 
     public static final String STATUS_JOINING = "Join";
     public static final String STATUS_LOST = "Lost";
+    public static final String STATUS_BIDDING = "Bidding";
     private final JLabel sniperStatus = createLabel(STATUS_JOINING);
 
     private JLabel createLabel(String initialText) {

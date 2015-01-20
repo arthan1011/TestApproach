@@ -4,13 +4,13 @@ package org.arthan.auctionsniper;
  * Created by arthan on 11/6/14.
  */
 
-import org.arthan.auctonsniper.Main;
-import org.arthan.auctonsniper.ui.MainWindow;
+import org.arthan.auctionsniper.ui.MainWindow;
 
 public class ApplicationRunner {
     public static final String SNIPER_ID = "sniper";
     public static final String SNIPER_PASSWORD = "sniper";
     public static final String XMPP_HOSTNAME = "localhost";
+    public static final String SNIPER_XMPP_ID = "sniper@arthan-pc/Auction";
 
     private AuctionSniperDriver driver;
 
@@ -40,5 +40,9 @@ public class ApplicationRunner {
         if (driver != null) {
             driver.dispose();
         }
+    }
+
+    public void hasShownSniperIsBidding() {
+        driver.showsSniperStatus(MainWindow.STATUS_BIDDING);
     }
 }
