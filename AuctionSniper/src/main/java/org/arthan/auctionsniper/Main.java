@@ -54,9 +54,9 @@ public class Main {
         );
     }
 
-    private void joinAuction(XMPPConnection connection, String itemID) throws XMPPException {
+    private void joinAuction(XMPPConnection connection, String itemId) throws XMPPException {
         final Chat chat = connection.getChatManager().createChat(
-                auctionID(itemID, connection), null);
+                auctionID(itemId, connection), null);
 
         Auction auction = new XMPPAuction(chat);
 
