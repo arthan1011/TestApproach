@@ -6,4 +6,6 @@ package org.arthan.auctionsniper;
 public interface Auction {
 
     public void bid(int newPrice);
+
+    public void join();
 }

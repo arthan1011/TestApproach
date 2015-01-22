@@ -27,6 +27,7 @@ public class MainWindow extends JFrame {
         super("Auction Sniper");
         setName(Main.MAIN_WINDOW_NAME);
         setSize(160, 20);
+        setLocation(700, 500);
         add(sniperStatus);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
