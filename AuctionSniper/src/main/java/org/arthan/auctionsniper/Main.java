@@ -37,12 +37,9 @@ public class Main {
     }
 
     private void startUserInterface() throws Exception {
-        SwingUtilities.invokeAndWait(new Runnable() {
-            @Override
-            public void run() {
-                ui = new MainWindow();
-            }
-        });
+
+        SwingUtilities.invokeAndWait(() -> ui = new MainWindow());
+
     }
 
     public static void main(String... args) throws Exception {
@@ -63,7 +60,9 @@ public class Main {
         disconnectWhenUICloses(connection);
         this.notToBeCGd = chat;
 
-        chat.addMessageListener(new AuctionMessageTranslator(new AuctionSniper(auction, new SniperStateDisplayer())));
+        chat.addMessageListener(new AuctionMessageTranslator(
+                connection.getUser(),
+                new AuctionSniper(auction, new SniperStateDisplayer())));
 
         auction.join();
     }
@@ -120,22 +119,12 @@ public class Main {
     private class SniperStateDisplayer implements SniperListener {
         @Override
         public void sniperLost() {
-            SwingUtilities.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    ui.showStatus(MainWindow.STATUS_LOST);
-                }
-            });
+            SwingUtilities.invokeLater(() -> ui.showStatus(MainWindow.STATUS_LOST));
         }
 
         @Override
         public void sniperBidding() {
-            SwingUtilities.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    ui.showStatus(MainWindow.STATUS_BIDDING);
-                }
-            });
+            SwingUtilities.invokeLater(() -> ui.showStatus(MainWindow.STATUS_BIDDING));
         }
     }
 }

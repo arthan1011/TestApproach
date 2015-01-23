@@ -9,7 +9,6 @@ import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.isNotNull;
 
 /**
  * Created by arthan on 11/8/14.

@@ -3,7 +3,6 @@ package org.arthan.auctionsniper;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 /**
  * Created by arthan on 1/18/15.
@@ -36,7 +35,7 @@ public class AuctionSniperTest {
             atLeast(1).of(sniperListener).sniperBidding();
         }});
 
-        sniper.currentPrice(price, increment);
+        sniper.currentPrice(price, increment, SniperListener.PriceSource.FromOtherBidder);
 
         context.assertIsSatisfied();
     }

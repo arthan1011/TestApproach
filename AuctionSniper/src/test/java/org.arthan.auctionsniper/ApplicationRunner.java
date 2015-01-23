@@ -1,9 +1,8 @@
 package org.arthan.auctionsniper;
 
 /**
- * Created by arthan on 11/6/14.
+ * Created by Arthur Shamsiev on 11/6/14.
  */
-
 import org.arthan.auctionsniper.ui.MainWindow;
 
 public class ApplicationRunner {
@@ -44,5 +43,13 @@ public class ApplicationRunner {
 
     public void hasShownSniperIsBidding() {
         driver.showsSniperStatus(MainWindow.STATUS_BIDDING);
+    }
+
+    public void showSniperIsWinning() {
+        driver.showsSniperStatus(MainWindow.STATUS_WINNING);
+    }
+
+    public void showSniperHasWonAuction() {
+        driver.showsSniperStatus(MainWindow.STATUS_WON);
     }
 }
