@@ -11,7 +11,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 /**
- * Created by arthan on 11/6/14.
+ * Created by Arthur Shamsiev on 11/6/14.
+ * Using IntelliJ IDEA
+ * Project - ${PROJECT_NAME}
  */
 public class Main {
     public static final String BID_COMMAND_FORMAT = "SOLVersion: 1.1; Command: BID; Price %d";
@@ -125,6 +127,16 @@ public class Main {
         @Override
         public void sniperBidding() {
             SwingUtilities.invokeLater(() -> ui.showStatus(MainWindow.STATUS_BIDDING));
+        }
+
+        @Override
+        public void sniperWinning() {
+            SwingUtilities.invokeLater(() -> ui.showStatus(MainWindow.STATUS_WINNING));
+        }
+
+        @Override
+        public void sniperWon() {
+            SwingUtilities.invokeLater(() -> ui.showStatus(MainWindow.STATUS_WON));
         }
     }
 }
