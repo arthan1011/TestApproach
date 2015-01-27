@@ -18,10 +18,10 @@ import java.awt.event.WindowEvent;
 public class Main {
     public static final String BID_COMMAND_FORMAT = "SOLVersion: 1.1; Command: BID; Price %d";
     public static final String JOIN_COMMAND_FORMAT = "SOLVersion: 1.1; Command: JOIN";
+    public static final String SNIPERS_TABLE_NAME = "Snipers table";
     @SuppressWarnings("unused") private Chat notToBeCGd;
 
     public static final String MAIN_WINDOW_NAME = "Auction Sniper Main";
-    public static final String SNIPER_STATUS_NAME = "Sniper Status";
 
     public static final String AUCTION_RESOURCE = "Auction";
     public static final String ITEM_ID_AS_LOGIN = "auction-%s";
@@ -121,22 +121,22 @@ public class Main {
     private class SniperStateDisplayer implements SniperListener {
         @Override
         public void sniperLost() {
-            SwingUtilities.invokeLater(() -> ui.showStatus(MainWindow.STATUS_LOST));
+            SwingUtilities.invokeLater(() -> ui.showStatusText(MainWindow.STATUS_LOST));
         }
 
         @Override
         public void sniperBidding() {
-            SwingUtilities.invokeLater(() -> ui.showStatus(MainWindow.STATUS_BIDDING));
+            SwingUtilities.invokeLater(() -> ui.showStatusText(MainWindow.STATUS_BIDDING));
         }
 
         @Override
         public void sniperWinning() {
-            SwingUtilities.invokeLater(() -> ui.showStatus(MainWindow.STATUS_WINNING));
+            SwingUtilities.invokeLater(() -> ui.showStatusText(MainWindow.STATUS_WINNING));
         }
 
         @Override
         public void sniperWon() {
-            SwingUtilities.invokeLater(() -> ui.showStatus(MainWindow.STATUS_WON));
+            SwingUtilities.invokeLater(() -> ui.showStatusText(MainWindow.STATUS_WON));
         }
     }
 }
