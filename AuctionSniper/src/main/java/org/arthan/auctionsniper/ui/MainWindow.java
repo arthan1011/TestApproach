@@ -1,9 +1,9 @@
 package org.arthan.auctionsniper.ui;
 
 import org.arthan.auctionsniper.Main;
+import org.arthan.auctionsniper.SniperSnapshot;
 
 import javax.swing.*;
-import javax.swing.table.AbstractTableModel;
 import java.awt.*;
 
 /**
@@ -25,7 +25,7 @@ public class MainWindow extends JFrame {
         setName(Main.MAIN_WINDOW_NAME);
         fillContentPane(makeSnipersTable());
         pack();
-        setSize(300, 50);
+        setSize(300, 100);
         setLocation(700, 500);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
@@ -44,31 +44,7 @@ public class MainWindow extends JFrame {
         return snipersTable;
     }
 
-    public void showStatusText(String statusText) {
-        snipers.setStatusText(statusText);
-    }
-
-    public class SnipersTableModel extends AbstractTableModel {
-        private String statusText = STATUS_JOINING;
-
-        @Override
-        public int getRowCount() {
-            return 1;
-        }
-
-        @Override
-        public int getColumnCount() {
-            return 1;
-        }
-
-        @Override
-        public Object getValueAt(int rowIndex, int columnIndex) {
-            return statusText;
-        }
-
-        public void setStatusText(String newStatusText) {
-            statusText = newStatusText;
-            fireTableRowsUpdated(0, 0);
-        }
+    public void showStatusText(SniperSnapshot sniperSnapshot) {
+        snipers.sniperStatusChanged(sniperSnapshot);
     }
 }

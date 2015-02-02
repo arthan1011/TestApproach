@@ -23,6 +23,7 @@ public class Main {
 
     public static final String MAIN_WINDOW_NAME = "Auction Sniper Main";
 
+    public static final String ITEM_ID = "item_33292";
     public static final String AUCTION_RESOURCE = "Auction";
     public static final String ITEM_ID_AS_LOGIN = "auction-%s";
     public static final String AUCTION_ID_FORMAT = ITEM_ID_AS_LOGIN + "@%s/" + AUCTION_RESOURCE;
@@ -64,7 +65,7 @@ public class Main {
 
         chat.addMessageListener(new AuctionMessageTranslator(
                 connection.getUser(),
-                new AuctionSniper(auction, new SniperStateDisplayer())));
+                new AuctionSniper(auction, new SniperStateDisplayer(), ITEM_ID)));
 
         auction.join();
     }
@@ -119,24 +120,11 @@ public class Main {
     }
 
     private class SniperStateDisplayer implements SniperListener {
-        @Override
-        public void sniperLost() {
-            SwingUtilities.invokeLater(() -> ui.showStatusText(MainWindow.STATUS_LOST));
-        }
 
         @Override
-        public void sniperBidding() {
-            SwingUtilities.invokeLater(() -> ui.showStatusText(MainWindow.STATUS_BIDDING));
+        public void sniperStateChanged(SniperSnapshot sniperSnapshot) {
+            SwingUtilities.invokeLater(() -> ui.showStatusText(sniperSnapshot));
         }
 
-        @Override
-        public void sniperWinning() {
-            SwingUtilities.invokeLater(() -> ui.showStatusText(MainWindow.STATUS_WINNING));
-        }
-
-        @Override
-        public void sniperWon() {
-            SwingUtilities.invokeLater(() -> ui.showStatusText(MainWindow.STATUS_WON));
-        }
     }
 }

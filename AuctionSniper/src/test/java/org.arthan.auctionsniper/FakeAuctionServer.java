@@ -11,7 +11,9 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
 /**
- * Created by arthan on 11/8/14.
+ * Created by Arthur Shamsiev on 11/8/14.
+ * Using IntelliJ IDEA
+ * Project - ${PROJECT_NAME}
  */
 public class FakeAuctionServer {
     public static final String ITEM_ID_AS_LOGIN = "auction-%s";
@@ -32,15 +34,10 @@ public class FakeAuctionServer {
     public void startSellingItem() throws XMPPException{
         connection.connect();
         connection.login(String.format(ITEM_ID_AS_LOGIN, itemID), AUCTION_PASSWORD, AUCTION_RESOURCE);
-        connection.getChatManager().addChatListener(
-                new ChatManagerListener() {
-                    @Override
-                    public void chatCreated(Chat chat, boolean b) {
-                        currentChat = chat;
-                        chat.addMessageListener(messageListener);
-                    }
-                }
-        );
+        connection.getChatManager().addChatListener((Chat chat, boolean b) -> {
+            currentChat = chat;
+            currentChat.addMessageListener(messageListener);
+        });
     }
 
     public void announceClosed() throws XMPPException {

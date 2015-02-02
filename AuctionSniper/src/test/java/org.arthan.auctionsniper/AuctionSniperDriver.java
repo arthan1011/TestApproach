@@ -4,9 +4,9 @@ import com.objogate.wl.swing.AWTEventQueueProber;
 import com.objogate.wl.swing.driver.JFrameDriver;
 import com.objogate.wl.swing.driver.JTableDriver;
 import com.objogate.wl.swing.gesture.GesturePerformer;
+import com.objogate.wl.swing.matcher.IterableComponentsMatcher;
 
 import static com.objogate.wl.swing.matcher.JLabelTextMatcher.withLabelText;
-import static org.hamcrest.Matchers.equalTo;
 
 /**
  * Created by Arthur Shamsiev on 11/6/14.
@@ -23,7 +23,15 @@ public class AuctionSniperDriver extends JFrameDriver {
                         new AWTEventQueueProber(timeMillis, 1000));
     }
 
-    public void showsSniperStatus(final String statusText) {
-        new JTableDriver(this).hasCell(withLabelText(equalTo(statusText)));
+    public void showsSniperStatus(final String itemID,
+                                  final int lastPrice,
+                                  final int lastBid,
+                                  final String statusText) {
+        new JTableDriver(this).hasRow(IterableComponentsMatcher.matching(
+                withLabelText(itemID),
+                withLabelText(String.valueOf(lastPrice)),
+                withLabelText(String.valueOf(lastBid)),
+                withLabelText(statusText)
+        ));
     }
 }
